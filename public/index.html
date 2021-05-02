@@ -25,19 +25,26 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>React App</title>
+    <script>
+      (function(){
+          function w() {
+          var r = document.documentElement;
+          var a = r.getBoundingClientRect().width;//获取当前设备的宽度
+              if (a > 720 ){//720不固定，根据设计稿的宽度定
+                  a = 720;
+              } 
+              rem = a / 7.2;
+              r.style.fontSize = rem + "px"
+          }
+          w();
+          window.addEventListener("resize", function() {//监听横竖屏切换
+              w()
+          }, false);
+      })();
+      </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
   </body>
 </html>

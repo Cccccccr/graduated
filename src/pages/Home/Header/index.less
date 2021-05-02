@@ -1,0 +1,51 @@
+.USER-HOME-HEADER {
+  .main-header {
+    background: #fff;
+    border-bottom: 1px solid #f1f1f1;
+    color: #909090;
+    height: 65px;
+    z-index: 250;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    transition: all 0.2s;
+    display: flex;
+    justify-content: center;
+  }
+
+  .container {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    position: relative;
+    width: 100%;
+    max-width: 960px;
+  }
+
+  .nav-list {
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+    height: 100%;
+
+    .link-item {
+      padding: 0 10px;
+      height: 100%;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 500;
+      font-size: 18px
+    }
+
+    .link-item:hover {
+      color: #84baff;
+    }
+
+    .active-link {
+      color: #84baff;
+    }
+  }
+}
