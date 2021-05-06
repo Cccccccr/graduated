@@ -28,6 +28,12 @@ class Login extends Component {
 
   async componentDidMount() {}
 
+  componentWillUnmount = () => {
+    this.setState = (state, callback) => {
+      return;
+    };
+  };
+
   handleShow = flag => {
     this.setState({ isModalVisible: !!flag });
   };
@@ -68,6 +74,7 @@ class Login extends Component {
         this.$message.warning(respondData.msg);
       } else {
         this.$message.success(`${login ? '登录' : '注册'}成功`);
+        this.props.dispatch(UserAction.initUserData(respondData));
         this.setState({ isModalVisible: false });
         this.clearData();
       }

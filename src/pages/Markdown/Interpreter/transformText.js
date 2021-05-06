@@ -40,7 +40,7 @@ function transformText(text) {
 }
 
 // br节点
-const brNode = { type: 'br' };
+// const brNode = { type: 'br' };
 
 /* 
 状态机：
@@ -101,7 +101,10 @@ function handleRow(fixedParameter) {
         break;
       case 'ol':
         // curNode.children = [transformToText(curNode)];
-        addLiNode(curNode, { ...transformToText(curNode), serial: curNode.matchNum });
+        addLiNode(curNode, {
+          ...transformToText(curNode),
+          serial: curNode.matchNum,
+        });
         break;
       default:
         break;
@@ -253,8 +256,8 @@ function handleRow(fixedParameter) {
   }
   function addLiNode(node, child) {
     console.log(node, child, '************');
-    const LI = { type: 'li', children: [child]};
-    if(!node.children) node.children = [];
+    const LI = { type: 'li', children: [child] };
+    if (!node.children) node.children = [];
     node.children.push(LI);
     return node;
   }
@@ -274,13 +277,11 @@ function handleRow(fixedParameter) {
       case 'ul':
         // 先不进行缩进判断
         // 判断是不是空字符串，是的话当做text处理
-        if(curNode.children)
-        preNode.children.push(addListChildren(curNode));
+        if (curNode.children) preNode.children.push(addListChildren(curNode));
         break;
       case 'text':
         // 如最后一个ul
         return curNode;
-        break;
       default:
         return curNode;
     }
@@ -315,20 +316,20 @@ function handleTable(fixedParameter) {
   }
 }
 
-function textAddText(text, preNode, curNode) {
-  console.log(preNode, 'textAddText');
-  if (addBr(preNode)) {
-    curNode.value = trim(curNode.value);
-    curNode.type = 'text';
-    preNode.children.push(curNode);
-  } else {
-    const exactNode = preNode.children[preNode.children.length - 1];
-    exactNode.value = exactNode.value + '\n' + trim(curNode.value);
-  }
-}
+// function textAddText(text, preNode, curNode) {
+//   console.log(preNode, 'textAddText');
+//   if (addBr(preNode)) {
+//     curNode.value = trim(curNode.value);
+//     curNode.type = 'text';
+//     preNode.children.push(curNode);
+//   } else {
+//     const exactNode = preNode.children[preNode.children.length - 1];
+//     exactNode.value = exactNode.value + '\n' + trim(curNode.value);
+//   }
+// }
 
 function handleText(fixedParameter, extraParameter) {
-  const { text, preNode, sourceRow, index } = fixedParameter;
+  const { text, preNode } = fixedParameter;
   const { getNodeData } = extraParameter;
   const curNode = getNode(text);
   const { type } = curNode;
@@ -358,15 +359,15 @@ function handleText(fixedParameter, extraParameter) {
   }
 }
 
-function addBr(node) {
-  const brReg = /\s{2,}$/;
-  const exactNode = node.children[node.children.length - 1];
-  if (brReg.test(exactNode.value)) {
-    node.children.push(brNode);
-    return true;
-  } else {
-    return false;
-  }
-}
+// function addBr(node) {
+//   const brReg = /\s{2,}$/;
+//   const exactNode = node.children[node.children.length - 1];
+//   if (brReg.test(exactNode.value)) {
+//     node.children.push(brNode);
+//     return true;
+//   } else {
+//     return false;
+//   }
+// }
 
 export { transformText };

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Editor from 'react-markdown-editor-lite';
-import ReactMarkdown from 'react-markdown';
-import Interpreter from './Interpreter'
+import Interpreter from './Interpreter';
 import 'react-markdown-editor-lite/lib/index.css';
+import './index.less';
 
 class MarkDown extends Component {
   constructor(props) {
@@ -17,22 +17,24 @@ class MarkDown extends Component {
     }
   };
 
-  handleEditorChange = ({html, text}) => {
-    // console.log(typeof html);
-    // console.log(html, text);
-  }
+  getMdValue = () => {
+    return this.mdEditor.current.getMdValue();
+  };
+
+  handleEditorChange = ({ html, text }) => {};
 
   render() {
     return (
-      <div>
-        <button onClick={this.handleClick}>Get value</button>
+      <div className="MarkDown">
+        {/* <button onClick={this.handleClick}>Get value</button> */}
         <Editor
           ref={this.mdEditor}
+          className="markdown-main"
           style={{
             height: '100%',
+            width: '100%',
           }}
           renderHTML={text => <Interpreter source={text} />}
-          // renderHTML={text => <ReactMarkdown source={text} />}
           onChange={this.handleEditorChange}
         />
       </div>

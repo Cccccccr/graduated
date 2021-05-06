@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { transformText } from './transformText';
-import Lazy from '../../Lazy';
+// import { transformText } from './transformText';
 
 class Interpreter extends Component {
   render() {
     const { source } = this.props;
     // console.log(this.props.source);
-    transformText(source);
+    // transformText(source);
     return (
       <>
-        {/* {Root(SimpleRenderer().props)} */}
-        <div>{SimpleRenderer()}</div>
+        {/* <div>{SimpleRenderer()}</div>
         <p>{"&nbsp;&nbsp;nide" + "\n" + "\*"}</p>
         <div>分割线----------------</div>
         <div>{this.props.source}</div>
-        <div>分割线----------------</div>
+        <div>分割线----------------</div> */}
         <ReactMarkdown source={source} />
       </>
     );
@@ -24,44 +22,31 @@ class Interpreter extends Component {
 
 export default Interpreter;
 
-function Root(props) {
-  const { className } = props;
-  return className
-    ? React.createElement('div', { className }, props.children)
-    : React.createElement(React.Fragment, {}, props.children);
-}
+// function Root(props) {
+//   const { className } = props;
+//   return className
+//     ? React.createElement('div', { className }, props.children)
+//     : React.createElement(React.Fragment, {}, props.children);
+// }
 
-// 文本渲染
-class Text extends Component {
-  render() {
-    return this.props.children || '';
-  }
-}
-function TextRenderer(props) {
-  return props.children || '';
-}
+// // 文本渲染
+// class Text extends Component {
+//   render() {
+//     return this.props.children || '';
+//   }
+// }
+// function TextRenderer(props) {
+//   return props.children || '';
+// }
 
-function SimpleRenderer() {
-  // return React.createElement(
-  //   Lazy,
-  //   { data: 'I am props data' },
-  //   React.createElement('p', null, [
-  //     React.createElement(Text, null, '我是text文本'),
-  //     React.createElement('br'),
-  //     React.createElement('em', null, '我是斜体文本'),
-  //   ]),
-  //   React.createElement(Text, null, '我是text文本'),
-  //   React.createElement('br'),
-  //   React.createElement('em', null, '我是斜体文本'),
-  //   React.createElement('li', null, '我是li')
-  // );
-  return React.createElement(
-    'p',
-    null,
-    React.createElement(React.Fragment, null, '()\nwode'),
-    React.createElement(React.Fragment, null, '')
-  );
-}
+// function SimpleRenderer() {
+//   return React.createElement(
+//     'p',
+//     null,
+//     React.createElement(React.Fragment, null, '()\nwode'),
+//     React.createElement(React.Fragment, null, '')
+//   );
+// }
 
 // 存储分行以后每一行得出的type数据结构，此时只区分以下type类型
 // p：text文本 下面的全部没有匹配上才算是text done

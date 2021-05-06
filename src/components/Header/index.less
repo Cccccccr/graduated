@@ -21,6 +21,7 @@
     position: relative;
     width: 100%;
     max-width: 960px;
+    justify-content: space-between;
   }
 
   .nav-list {
@@ -47,5 +48,20 @@
     .active-link {
       color: #84baff;
     }
+  }
+
+  .searchContainer {
+    flex-grow: 2;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 40px;
+
+    .search-cp {
+      width: 200px;
+    }
+  }
+
+  .edit-options {
+    padding-right: 20px;
   }
 }

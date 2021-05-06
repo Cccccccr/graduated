@@ -34,10 +34,21 @@ const router = [
     redirect: '/home',
   },
   {
+    path: '/transit',
+    loader: () => import('@/pages/TransitPage')
+  },
+  {
     path: '/login',
     loader: () => import('@/pages/Login'),
     routerConfig: {
       needUserLogin: false,
+    },
+  },
+  {
+    path: '/editor',
+    loader: () => import('@/pages/Editor'),
+    routerConfig: {
+      needUserLogin: true,
     },
   },
   {

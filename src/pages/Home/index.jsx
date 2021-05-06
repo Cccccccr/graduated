@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import Herader from './Header';
-import Login from '../Login';
-import Markdown from '../Markdown';
-import { Button } from 'antd';
+import Herader from '../../components/Header';
 
 import './index.less';
 
@@ -14,6 +11,10 @@ class Home extends Component {
     this.state = {
       value: '',
     };
+  }
+
+  componentDidMount() {
+    console.log(this);
   }
 
   btnClick = () => {
@@ -30,11 +31,9 @@ class Home extends Component {
     const {  routes = false } = this.props;
     return (
       <div className="USER-HOME">
+        <div className="background"></div>
         <Herader />
-        {/* <Button onClick={this.btnClick}>click</Button> */}
         {routes && routes}
-        {/* <Login ref={this.loginRef} /> */}
-        {/* <Markdown /> */}
       </div>
     );
   }

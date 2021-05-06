@@ -1,51 +1,94 @@
 import React, { Component } from 'react';
-import PropTypes from "prop-types";
-import { nanoid } from 'nanoid';
+import { connect } from 'react-redux';
+import Search from './search';
+import EditOption from './editOption';
+import LoginHome from './loginHome';
+import Login from '../Login';
+import UserOptions from './userOptions';
+import './index.less';
 
-class Header extends Component {
-    static propTypes = {
-        addTodos: PropTypes.func.isRequired
-    }
-
-    constructor(props) {
-        super(props);
-        if(props.setState) {
-            this.setState = props.setState;
-        }
-    }
-
-    // componentDidMount() {
-    //     let { state, setState } = this.props;
-    //     setState({...state, todos: [...state.todos, { id: '004', name: '自己实现修改父组件state', done: true }]})
-    // }
-
-    handleKeyUp = event => {
-        if(event.keyCode !== 13) return;
-        const value = event.target.value;
-        if(value) {
-            const { state, addTodos } = this.props;
-            const todo = { id: nanoid(), name: value, done: false }
-            const newTodos = [
-                ...state.todos,
-                todo
-            ];
-            // 通过setState透传的方式
-            // this.setState({...state, todos: newTodos});
-
-            // 通过传递函数，执行函数的方式
-            addTodos(todo);
-            event.target.value = '';
-        }
-
-    }
-
-    render() {
-        return (
-            <div>
-                <input onKeyUp={this.handleKeyUp} type="text" placeholder="请输入你的任务名称，按回车键确认"/>
-            </div>
-        );
-    }
+function mapStateToProps(state) {
+  return {
+    user: state.user,
+  };
 }
 
-export default Header;
+function mapDispatchToProps(dispatch) {
+  return { dispatch };
+}
+
+class Header extends Component {
+  constructor(props) {
+    super(props);
+    this.loginRef = React.createRef();
+    this.state = {
+      activeLink: 0,
+      navList: [
+        { value: '首页', path: '/home' },
+        { value: '问答', path: '/question' },
+      ],
+    };
+  }
+
+  linkItemClick = index => {
+    // const item = this.state.navList[index];
+    this.setState({ activeLink: index });
+  };
+
+  showLogin = () => {
+    this.loginRef.current.handleShow(true);
+  };
+
+  render() {
+    const { navList, activeLink } = this.state;
+
+    return (
+      <div className="USER-HOME-HEADER">
+        <div className="main-header">
+          <div className="container">
+            <div className="nav-list">
+              {navList.map((item, index) => {
+                return (
+                  <div
+                    className={[
+                      'link-item',
+                      index === activeLink ? 'active-link' : '',
+                    ].join(' ')}
+                    key={item.value}
+                    onClick={() => {
+                      this.linkItemClick(index);
+                    }}
+                  >
+                    <span>{item.value}</span>
+                  </div>
+                );
+              })}
+            </div>
+            <div className="searchContainer">
+              <div className="search-cp">
+                <Search />
+              </div>
+            </div>
+            <div className="edit-options">
+              <EditOption showLogin={this.showLogin} />
+            </div>
+            {this.props.user.userId ? (
+              <div className="user-options">
+                <UserOptions />
+              </div>
+            ) : (
+              <div className="login">
+                <LoginHome showLogin={this.showLogin} />
+              </div>
+            )}
+          </div>
+        </div>
+        <Login ref={this.loginRef} />
+      </div>
+    );
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps, null, {
+  forwardRef: true,
+})(Header);
